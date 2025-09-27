@@ -4,7 +4,7 @@ import { AOSInitializer } from "../components/AOSInitializer";
 
 export const metadata: Metadata = {
   title: "John Fraser Elections",
-  description: "Created my JFSS SAC",
+  description: "Created by JFSS SAC",
 };
 
 export default function RootLayout({

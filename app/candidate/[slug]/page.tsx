@@ -1,7 +1,10 @@
+'use client'
+
 import { notFound } from "next/navigation";
 import { candidates } from "../../../utils/candidates";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const getRoleColor = (role: string) => {
   const normalized = role.toLowerCase().replace(/\s+/g, ""); // e.g., "Vice President" → "vicepresident"
@@ -19,28 +22,12 @@ const getRoleColor = (role: string) => {
   }
 };
 
-const checkPosterExists = async (posterUrl: string): Promise<boolean> => {
-  try {
-    const response = await fetch(posterUrl, { method: 'HEAD' });
-    return response.ok;
-  } catch {
-    return false;
-  }
-};
-
-const checkImageExists = async (imageUrl: string): Promise<boolean> => {
-  try {
-    const response = await fetch(imageUrl, { method: 'HEAD' });
-    return response.ok;
-  } catch {
-    return false;
-  }
-};
-
-export default async function CandidatePage(
+export default function CandidatePage(
   props: { params: { slug: string }; searchParams?: Record<string, string | string[]> }
 ) {
   const { slug } = props.params;
+  const [finalImageSrc, setFinalImageSrc] = useState<string>('');
+  const [posterExists, setPosterExists] = useState<boolean>(false);
 
   const candidate = candidates.find(
     c => c.name.toLowerCase().replace(/\s+/g, "-") === slug
@@ -49,11 +36,39 @@ export default async function CandidatePage(
   if (!candidate) return notFound();
 
   const roleColor = getRoleColor(candidate.role);
-  const posterExists = candidate.poster ? await checkPosterExists(candidate.poster) : false;
-  
-  // Check if candidate image exists, use placeholder if not
-  const imageExists = candidate.image ? await checkImageExists(candidate.image) : false;
-  const finalImageSrc = imageExists ? candidate.image : '/placeholder.jpg';
+
+  // Check image and poster existence
+  useEffect(() => {
+    const checkAssets = async () => {
+      // Check image
+      if (!candidate.image) {
+        setFinalImageSrc('/placeholder.jpg');
+      } else {
+        try {
+          const response = await fetch(candidate.image, { method: 'HEAD' });
+          if (response.ok) {
+            setFinalImageSrc(candidate.image);
+          } else {
+            setFinalImageSrc('/placeholder.jpg');
+          }
+        } catch {
+          setFinalImageSrc('/placeholder.jpg');
+        }
+      }
+
+      // Check poster
+      if (candidate.poster) {
+        try {
+          const response = await fetch(candidate.poster, { method: 'HEAD' });
+          setPosterExists(response.ok);
+        } catch {
+          setPosterExists(false);
+        }
+      }
+    };
+
+    checkAssets();
+  }, [candidate.image, candidate.poster]);
 
   return (
     <>
@@ -74,7 +89,7 @@ export default async function CandidatePage(
             className="bg-white shadow-lg flex flex-col items-center p-6 rounded-lg">
             <div className="relative rounded-lg" style={{ width: 312, height: 312 }}>
               <Image
-                src={finalImageSrc}
+                src={finalImageSrc || '/placeholder.jpg'}
                 alt={candidate.name}
                 width={312}
                 height={312}
