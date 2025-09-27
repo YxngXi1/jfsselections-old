@@ -33,12 +33,12 @@ export default function CandidatePage(
     c => c.name.toLowerCase().replace(/\s+/g, "-") === slug
   );
 
-  if (!candidate) return notFound();
-
-  const roleColor = getRoleColor(candidate.role);
+  const roleColor = candidate ? getRoleColor(candidate.role) : "#0073FF";
 
   // Check image and poster existence
   useEffect(() => {
+    if (!candidate) return;
+
     const checkAssets = async () => {
       // Check image
       if (!candidate.image) {
@@ -68,7 +68,9 @@ export default function CandidatePage(
     };
 
     checkAssets();
-  }, [candidate.image, candidate.poster]);
+  }, [candidate]);
+
+  if (!candidate) return notFound();
 
   return (
     <>
