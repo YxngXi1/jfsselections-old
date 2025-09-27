@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AOSInitializer } from "@/components/AOSInitializer";
+import { AOSInitializer } from "../components/AOSInitializer";
 
 export const metadata: Metadata = {
   title: "John Fraser Elections",

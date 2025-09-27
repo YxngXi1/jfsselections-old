@@ -1,7 +1,41 @@
 import { notFound } from "next/navigation";
-import { candidates } from "@/utils/candidates";
+import { candidates } from "../../../utils/candidates";
 import Image from "next/image";
 import Link from "next/link";
+
+const getRoleColor = (role: string) => {
+  const normalized = role.toLowerCase().replace(/\s+/g, ""); // e.g., "Vice President" → "vicepresident"
+  switch (normalized) {
+    case "grade12rep":
+      return "#2F3E46";
+    case "grade11rep":
+      return "#E07A5F";
+    case "grade10rep":
+      return "#457B9D";
+    case "grade9rep":
+      return "#A3B18A";
+    default:
+      return "#0073FF";
+  }
+};
+
+const checkPosterExists = async (posterUrl: string): Promise<boolean> => {
+  try {
+    const response = await fetch(posterUrl, { method: 'HEAD' });
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+const checkImageExists = async (imageUrl: string): Promise<boolean> => {
+  try {
+    const response = await fetch(imageUrl, { method: 'HEAD' });
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
 
 export default async function CandidatePage(
   props: { params: { slug: string }; searchParams?: Record<string, string | string[]> }
@@ -14,25 +48,12 @@ export default async function CandidatePage(
 
   if (!candidate) return notFound();
 
-const getRoleColor = (role: string) => {
-  const normalized = role.toLowerCase().replace(/\s+/g, ""); // e.g., "Vice President" → "vicepresident"
-  switch (normalized) {
-    case "president":
-      return "#0073FF";
-    case "vicepresident":
-      return "#FF4741";
-    case "socialconvenor":
-      return "#FF7F00";
-    case "clubsliason":
-      return "#32CD32";
-    default:
-      return "#0073FF";
-  }
-};
-
-
   const roleColor = getRoleColor(candidate.role);
-
+  const posterExists = candidate.poster ? await checkPosterExists(candidate.poster) : false;
+  
+  // Check if candidate image exists, use placeholder if not
+  const imageExists = candidate.image ? await checkImageExists(candidate.image) : false;
+  const finalImageSrc = imageExists ? candidate.image : '/placeholder.jpg';
 
   return (
     <>
@@ -53,7 +74,7 @@ const getRoleColor = (role: string) => {
             className="bg-white shadow-lg flex flex-col items-center p-6 rounded-lg">
             <div className="relative rounded-lg" style={{ width: 312, height: 312 }}>
               <Image
-                src={candidate.image}
+                src={finalImageSrc}
                 alt={candidate.name}
                 width={312}
                 height={312}
@@ -71,7 +92,7 @@ const getRoleColor = (role: string) => {
             >
               <h2 className="m-4 uppercase text-3xl font-light ml-4">&#8205; {candidate.role} CANDIDATE</h2>
             </div>
-            {candidate.poster ? (
+            {candidate.poster && posterExists ? (
               <Link href={candidate.poster} target="_blank">
                 <button className="text-2xl font-light hover:cursor-pointer">
                   View Candidate Poster &rarr;
@@ -92,16 +113,7 @@ const getRoleColor = (role: string) => {
         {candidate.video ? (
           <div className="mt-[21px] mb-4 w-3/4 aspect-video">
             <iframe
-              src={
-                // If candidate.video is a Vimeo ID (all digits)
-                candidate.video.match(/^\d+$/)
-                  ? `${candidate.video}`
-                  // If candidate.video is a full Vimeo URL
-                  : candidate.video.includes("vimeo.com")
-                    ? candidate.video.replace(/vimeo\.com\/(\d+)/, "player.vimeo.com/video/$1") + "?h=9e95efaa31&badge=0&autopause=0&player_id=0&app_id=58479"
-                    // Otherwise, assume YouTube
-                    : candidate.video.replace("watch?v=", "embed/")
-              }
+              src={candidate.video.replace(/&amp;/g, '&')}
               title={candidate.name + " campaign video"}
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
               allowFullScreen
@@ -122,23 +134,25 @@ const getRoleColor = (role: string) => {
       </div>
       <hr className="h-[20px] border-0"></hr>
       
-      <div
-      style={{
-        position: "fixed",
-        bottom: "24px",
-        right: "24px",
-        zIndex: 1000,
-        background: "rgba(0,0,0,0.75)",
-        color: "white",
-        padding: "6px 14px",
-        borderRadius: "12px",
-        fontSize: "0.85rem",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-        pointerEvents: "none",
-      }}
-      >
-        ↓ Scroll down to view the video
-      </div>
+      {candidate.video && (
+        <div
+        style={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+          zIndex: 1000,
+          background: "rgba(0,0,0,0.75)",
+          color: "white",
+          padding: "6px 14px",
+          borderRadius: "12px",
+          fontSize: "0.85rem",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+          pointerEvents: "none",
+        }}
+        >
+          ↓ Scroll down to view the video
+        </div>
+      )}
 
     </>
   );
