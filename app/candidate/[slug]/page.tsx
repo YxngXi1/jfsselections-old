@@ -130,7 +130,7 @@ export default function CandidatePage(
           </div>
         </main>
         <hr className="h-[21px]"></hr>
-        {candidate.video ? (
+        {candidate.video && videoExists ? (
           <div className="mt-[21px] mb-4 w-3/4 aspect-video">
             <video
               src={candidate.video}
