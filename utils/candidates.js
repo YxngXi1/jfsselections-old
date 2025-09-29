@@ -18,7 +18,7 @@ export const candidates = [
     image: "/candidates/grade12rep/ryan.jpg",
     role: "grade 12 rep",
     poster: "/candidates/grade12rep/posters/ryan.jpg",
-    video: "/candidates/grade12rep/video/ryan.mp4",
+    video: "https://player.vimeo.com/video/1122717325",
   },
   {
     name: "KASHAF RAO",
@@ -32,7 +32,7 @@ export const candidates = [
     image: "/candidates/grade12rep/inesh.jpg",
     role: "grade 12 rep",
     poster: "/candidates/grade12rep/posters/inesh.jpg",
-    video: "/candidates/grade12rep/video/inesh.mp4",
+    video: "https://player.vimeo.com/video/1122717501",
   },
   {
     name: "ILHAM QADRI",

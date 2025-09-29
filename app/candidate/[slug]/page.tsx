@@ -132,24 +132,28 @@ export default function CandidatePage(
         <hr className="h-[21px]"></hr>
         {candidate.video && videoExists ? (
           <div className="mt-[21px] mb-4 w-3/4 aspect-video">
-            <video
-              src={candidate.video}
-              controls
-              preload="metadata"
-              className="border-0 w-full h-full rounded-lg"
-              onError={(e) => {
-                console.error('Video failed to load:', candidate.video, e);
-                setVideoError(`Failed to load: ${candidate.video}`);
-              }}
-              onLoadStart={() => {
-                console.log('Video loading started:', candidate.video);
-              }}
-              onCanPlay={() => {
-                console.log('Video can play:', candidate.video);
-              }}
-            >
-              <p className="text-center text-gray-500">Your browser does not support the video tag.</p>
-            </video>
+            {candidate.video.includes('vimeo.com') || candidate.video.includes('player.vimeo.com') ? (
+              <iframe
+                src={candidate.video}
+                title={`${candidate.name} campaign video`}
+                className="border-0 w-full h-full rounded-lg"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                src={candidate.video}
+                controls
+                preload="metadata"
+                className="border-0 w-full h-full rounded-lg"
+                onError={(e) => {
+                  console.error('Video failed to load:', candidate.video, e);
+                  setVideoError(`Failed to load: ${candidate.video}`);
+                }}
+              >
+                <p className="text-center text-gray-500">Your browser does not support the video tag.</p>
+              </video>
+            )}
             {videoError && (
               <p className="text-red-500 text-sm mt-2">Debug: {videoError}</p>
             )}
