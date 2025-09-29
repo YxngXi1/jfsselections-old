@@ -28,6 +28,7 @@ export default function CandidatePage(
   const { slug } = props.params;
   const [finalImageSrc, setFinalImageSrc] = useState<string>('');
   const [posterExists, setPosterExists] = useState<boolean>(false);
+  const [videoExists, setVideoExists] = useState<boolean>(false);
 
   const candidate = candidates.find(
     c => c.name.toLowerCase().replace(/\s+/g, "-") === slug
@@ -64,6 +65,18 @@ export default function CandidatePage(
         } catch {
           setPosterExists(false);
         }
+      }
+
+      // Check video
+      if (candidate.video) {
+        try {
+          const response = await fetch(candidate.video, { method: 'HEAD' });
+          setVideoExists(response.ok);
+        } catch {
+          setVideoExists(false);
+        }
+      } else {
+        setVideoExists(false);
       }
     };
 
@@ -127,7 +140,7 @@ export default function CandidatePage(
           </div>
         </main>
         <hr className="h-[21px]"></hr>
-        {candidate.video ? (
+        {candidate.video && videoExists ? (
           <div className="mt-[21px] mb-4 w-3/4 aspect-video">
             <iframe
               src={candidate.video.replace(/&amp;/g, '&')}
@@ -142,6 +155,7 @@ export default function CandidatePage(
             <span className="text-gray-500 text-xl">This Candidate has no Video.</span>
           </div>
         )}
+
       </section>
       <hr className="h-[20px] border-0"></hr>
       <div className="border-0 flex justify-center items-center w-full">
@@ -151,7 +165,7 @@ export default function CandidatePage(
       </div>
       <hr className="h-[20px] border-0"></hr>
       
-      {candidate.video && (
+      {candidate.video && videoExists && (
         <div
         style={{
           position: "fixed",
