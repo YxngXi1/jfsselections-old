@@ -140,21 +140,26 @@ export default function CandidatePage(
           </div>
         </main>
         <hr className="h-[21px]"></hr>
-        {candidate.video && videoExists ? (
-          <div className="mt-[21px] mb-4 w-3/4 aspect-video">
-            <iframe
-              src={candidate.video.replace(/&amp;/g, '&')}
-              title={candidate.name + " campaign video"}
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-              allowFullScreen
-              className="border-0 w-full h-full rounded-lg"
-            />
-          </div>
-        ) : (
-          <div className="hover:cursor-not-allowed mt-[21px] mb-4 w-3/4 aspect-video flex items-center justify-center bg-gray-100 rounded-lg">
-            <span className="text-gray-500 text-xl">This Candidate has no Video.</span>
-          </div>
-        )}
+          {candidate.video && videoExists ? (
+            <div className="mt-[21px] mb-4 w-3/4 aspect-video">
+              <video
+                src={candidate.video}
+                controls
+                preload="metadata"
+                className="border-0 w-full h-full rounded-lg"
+                onError={(e) => {
+                  console.log('Video failed to load:', candidate.video);
+                  setVideoExists(false);
+                }}
+              >
+                <p className="text-center text-gray-500">Your browser does not support the video tag.</p>
+              </video>
+            </div>
+          ) : (
+            <div className="hover:cursor-not-allowed mt-[21px] mb-4 w-3/4 aspect-video flex items-center justify-center bg-gray-100 rounded-lg">
+              <span className="text-gray-500 text-xl">This Candidate has no Video.</span>
+            </div>
+          )}
 
       </section>
       <hr className="h-[20px] border-0"></hr>
