@@ -67,17 +67,8 @@ export default function CandidatePage(
         }
       }
 
-      // Check video
-      if (candidate.video) {
-        try {
-          const response = await fetch(candidate.video, { method: 'HEAD' });
-          setVideoExists(response.ok);
-        } catch {
-          setVideoExists(false);
-        }
-      } else {
-        setVideoExists(false);
-      }
+      // Simplified video check - assume it exists if path is provided
+      setVideoExists(!!candidate.video);
     };
 
     checkAssets();
@@ -147,7 +138,7 @@ export default function CandidatePage(
                 controls
                 preload="metadata"
                 className="border-0 w-full h-full rounded-lg"
-                onError={(e) => {
+                onError={() => {
                   console.log('Video failed to load:', candidate.video);
                   setVideoExists(false);
                 }}
