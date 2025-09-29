@@ -29,6 +29,7 @@ export default function CandidatePage(
   const [finalImageSrc, setFinalImageSrc] = useState<string>('');
   const [posterExists, setPosterExists] = useState<boolean>(false);
   const [videoExists, setVideoExists] = useState<boolean>(false);
+  const [videoError, setVideoError] = useState<string>('');
 
   const candidate = candidates.find(
     c => c.name.toLowerCase().replace(/\s+/g, "-") === slug
@@ -36,7 +37,7 @@ export default function CandidatePage(
 
   const roleColor = candidate ? getRoleColor(candidate.role) : "#0073FF";
 
-  // Check image and poster existence
+  // Simplified asset checking - remove video HEAD request
   useEffect(() => {
     if (!candidate) return;
 
@@ -67,7 +68,7 @@ export default function CandidatePage(
         }
       }
 
-      // Simplified video check - assume it exists if path is provided
+      // Just check if video path exists - don't do HEAD request
       setVideoExists(!!candidate.video);
     };
 
@@ -85,11 +86,9 @@ export default function CandidatePage(
         </Link>
       </div>
 
-
       <section className="flex flex-col items-center pt-20 mt-20">
         <hr className="h-[100px]"/>
         <main className="h-full flex flex-col md:flex-row justify-start items-center gap-x-10 w-3/4">
-
 
           <div
             className="bg-white shadow-lg flex flex-col items-center p-6 rounded-lg">
@@ -131,26 +130,35 @@ export default function CandidatePage(
           </div>
         </main>
         <hr className="h-[21px]"></hr>
-          {candidate.video && videoExists ? (
-            <div className="mt-[21px] mb-4 w-3/4 aspect-video">
-              <video
-                src={candidate.video}
-                controls
-                preload="metadata"
-                className="border-0 w-full h-full rounded-lg"
-                onError={() => {
-                  console.log('Video failed to load:', candidate.video);
-                  setVideoExists(false);
-                }}
-              >
-                <p className="text-center text-gray-500">Your browser does not support the video tag.</p>
-              </video>
-            </div>
-          ) : (
-            <div className="hover:cursor-not-allowed mt-[21px] mb-4 w-3/4 aspect-video flex items-center justify-center bg-gray-100 rounded-lg">
-              <span className="text-gray-500 text-xl">This Candidate has no Video.</span>
-            </div>
-          )}
+        {candidate.video ? (
+          <div className="mt-[21px] mb-4 w-3/4 aspect-video">
+            <video
+              src={candidate.video}
+              controls
+              preload="metadata"
+              className="border-0 w-full h-full rounded-lg"
+              onError={(e) => {
+                console.error('Video failed to load:', candidate.video, e);
+                setVideoError(`Failed to load: ${candidate.video}`);
+              }}
+              onLoadStart={() => {
+                console.log('Video loading started:', candidate.video);
+              }}
+              onCanPlay={() => {
+                console.log('Video can play:', candidate.video);
+              }}
+            >
+              <p className="text-center text-gray-500">Your browser does not support the video tag.</p>
+            </video>
+            {videoError && (
+              <p className="text-red-500 text-sm mt-2">Debug: {videoError}</p>
+            )}
+          </div>
+        ) : (
+          <div className="hover:cursor-not-allowed mt-[21px] mb-4 w-3/4 aspect-video flex items-center justify-center bg-gray-100 rounded-lg">
+            <span className="text-gray-500 text-xl">This Candidate has no Video.</span>
+          </div>
+        )}
 
       </section>
       <hr className="h-[20px] border-0"></hr>
@@ -161,7 +169,7 @@ export default function CandidatePage(
       </div>
       <hr className="h-[20px] border-0"></hr>
       
-      {candidate.video && videoExists && (
+      {candidate.video && (
         <div
         style={{
           position: "fixed",
