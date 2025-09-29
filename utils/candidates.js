@@ -53,7 +53,7 @@ export const candidates = [
     image: "/candidates/grade12rep/faisal.jpg",
     role: "grade 12 rep",
     poster: "/candidates/grade12rep/posters/faisal.jpg",
-    video: "/candidates/grade12rep/video/faisal.mp4",
+    video: "",
   },
   {
     name: "RAIMA HUSSAIN",
@@ -95,7 +95,7 @@ export const candidates = [
     image: "/candidates/grade11rep/faaris.jpg",
     role: "grade 11 rep",
     poster: "/candidates/grade11rep/posters/faaris.jpg",
-    video: "/candidates/grade11rep/video/faaris.mp4",
+    video: "",
   },
   {
     name: "ESHAAL CHEEMA",
@@ -137,7 +137,7 @@ export const candidates = [
     image: "/candidates/grade10rep/sayon.jpg",
     role: "grade 10 rep",
     poster: "/candidates/grade10rep/posters/sayon.jpg",
-    video: "/candidates/grade10rep/video/sayon.mp4",
+    video: "",
   },
   {
     name: "ROHAN PALADGU",
@@ -165,7 +165,7 @@ export const candidates = [
     image: "/candidates/grade10rep/jason.jpg",
     role: "grade 10 rep",
     poster: "/candidates/grade10rep/posters/jason.jpg",
-    video: "/candidates/grade10rep/video/jason.mp4",
+    video: "",
   },
   {
     name: "BAN AL-TEKREETI",
@@ -179,7 +179,7 @@ export const candidates = [
     image: "/candidates/grade10rep/anaya.jpg",
     role: "grade 10 rep",
     poster: "/candidates/grade10rep/posters/anaya.jpg",
-    video: "/candidates/grade10rep/video/anaya.mp4",
+    video: "",
   },
   {
     name: "AMINAH BUTT",
@@ -193,7 +193,7 @@ export const candidates = [
     image: "/candidates/grade9rep/yashi.jpg",
     role: "grade 9 rep",
     poster: "/candidates/grade9rep/posters/yashi.jpg",
-    video: "/candidates/grade9rep/video/yashi.mp4",
+    video: "",
   },
   {
     name: "SURI NA",
