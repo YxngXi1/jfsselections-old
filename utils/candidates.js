@@ -88,7 +88,7 @@ export const candidates = [
     image: "/candidates/grade11rep/inaya.jpg",
     role: "grade 11 rep",
     poster: "/candidates/grade11rep/posters/inaya.jpg",
-    video: "/candidates/grade11rep/video/inaya.mp4",
+    video: "https://player.vimeo.com/video/1122721414",
   },
   {
     name: "FAARIS ZEESHAN",
@@ -109,7 +109,7 @@ export const candidates = [
     image: "/candidates/grade11rep/urpicisglitched.jpg",
     role: "grade 11 rep",
     poster: "/candidates/grade11rep/posters/darsh.jpg",
-    video: "/candidates/grade11rep/video/darsh.mp4",
+    video: "https://player.vimeo.com/video/1122721927",
   },
   {
     name: "ASHAZ ARIF KHAN",
