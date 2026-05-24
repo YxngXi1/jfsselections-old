@@ -35,10 +35,10 @@ export default function Home() {
     checkImages();
   }, []);
 
-  const Grade12RepCandidates = processedCandidates.filter(c => c.role === "grade 12 rep");
-  const Grade11RepCandidates = processedCandidates.filter(c => c.role === "grade 11 rep");
-  const Grade10RepCandidates = processedCandidates.filter(c => c.role === "grade 10 rep");
-  const Grade9RepCandidates = processedCandidates.filter(c => c.role === "grade 9 rep");
+  const presidentCandidates = processedCandidates.filter(c => c.role === "president");
+  const vicePresidentCandidates = processedCandidates.filter(c => c.role === "vice president");
+  const treasurerCandidates = processedCandidates.filter(c => c.role === "treasurer");
+  const socialConvenorCandidates = processedCandidates.filter(c => c.role === "social convenor");
   const [scrollY, setScrollY] = useState(0);
 
   // Handle scroll event to create parallax effect
@@ -107,27 +107,27 @@ export default function Home() {
       <hr className="h-[40px] md:h-[50px] border-0"></hr>
       <section className="" id="candidates">
 
-        {/* Grade 12 RepS */}
+        {/* President */}
 
         <main className="min-h-screen flex flex-col justify-center items-center text-center gap-y-10 mt-20">
           <div className="flex flex-col gap-y-2">
-            <h1 className="text-6xl font-bold">GRADE 12 REP</h1>
+            <h1 className="text-6xl font-bold">PRESIDENT</h1>
             <h2 className="w-[350px] md:w-[407px] text-xl font-light mb-20">TIP: Click on their profile to learn more about their <a className="font-bold">promises!</a></h2>
           </div>
           <div
             className={
               `grid gap-8 max-w-5xl px-4 mx-auto justify-center ` +
               (
-                Grade12RepCandidates.length === 1
+                presidentCandidates.length === 1
                   ? "grid-cols-1"
-                  : Grade12RepCandidates.length === 2
+                  : presidentCandidates.length === 2
                   ? "grid-cols-1 sm:grid-cols-2"
                   : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
               )
             }
             style={{ gap: "126px"}}
           >
-            {Grade12RepCandidates.map((candidate) => (
+            {presidentCandidates.map((candidate) => (
               <Link
                 key={candidate.name}
                 href={`/candidate/${candidate.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -163,27 +163,27 @@ export default function Home() {
           </div>
         </main>
 
-        {/* Grade 11 Reps */}
+        {/* Vice President */}
         <hr className="h-[40px] md:h-[50px] border-0"></hr>
         <main className="min-h-screen flex flex-col justify-center items-center text-center gap-y-10">
           <div className="flex flex-col gap-y-2 justify-center items-center">
-            <h1 className="text-6xl font-bold text-center">GRADE 11 REP</h1>
+            <h1 className="text-6xl font-bold text-center">VICE PRESIDENT</h1>
             <h2 className="w-[350px] md:w-[407px] text-xl font-light mb-20">TIP: Click on their profile to learn more about their <a className="font-bold">promises!</a></h2>
           </div>
           <div
             className={
               `grid gap-8 max-w-5xl px-4 mx-auto justify-center ` +
               (
-                Grade11RepCandidates.length === 1
+                vicePresidentCandidates.length === 1
                   ? "grid-cols-1"
-                  : Grade11RepCandidates.length === 2
+                  : vicePresidentCandidates.length === 2
                   ? "grid-cols-1 sm:grid-cols-2"
                   : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
               )
             }
             style={{ gap: "126px"}}
           >
-            {Grade11RepCandidates.map((candidate) => (
+            {vicePresidentCandidates.map((candidate) => (
               <Link
                 key={candidate.name}
                 href={`/candidate/${candidate.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -219,28 +219,28 @@ export default function Home() {
           </div>
         </main>
 
-        {/* Grade 10 Rep */}
+        {/* Treasurer */}
 
         <hr className="h-[40px] md:h-[50px] border-0"></hr>
         <main className="min-h-screen flex flex-col justify-center items-center text-center gap-y-10">
           <div className="flex flex-col justify-center items-center gap-y-2">
-            <h1 className="text-6xl font-bold text-center">GRADE 10 REP</h1>
+            <h1 className="text-6xl font-bold text-center">TREASURER</h1>
             <h2 className="w-[350px] md:w-[407px] text-xl font-light mb-20 mx-auto text-center">TIP: Click on their profile to learn more about their <a className="font-bold">promises!</a></h2>
           </div>
           <div
             className={
               `grid gap-8 max-w-5xl px-4 mx-auto justify-center ` +
               (
-                Grade10RepCandidates.length === 1
+                treasurerCandidates.length === 1
                   ? "grid-cols-1"
-                  : Grade10RepCandidates.length === 2
+                  : treasurerCandidates.length === 2
                   ? "grid-cols-1 sm:grid-cols-2"
                   : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
               )
             }
             style={{ gap: "126px"}}
           >
-            {Grade10RepCandidates.map((candidate) => (
+            {treasurerCandidates.map((candidate) => (
               <Link
                 key={candidate.name}
                 href={`/candidate/${candidate.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -276,28 +276,28 @@ export default function Home() {
           </div>
         </main>
 
-        {/* GRADE 9 REP */}
+        {/* Social Convenor */}
 
         <hr className="h-[40px] md:h-[50px] border-0"></hr>
         <main className="min-h-screen flex flex-col justify-center items-center text-center gap-y-10">
           <div className="flex flex-col gap-y-2 justify-center items-center">
-            <h1 className="text-6xl font-bold text-center">GRADE 9 REP</h1>
+            <h1 className="text-6xl font-bold text-center">SOCIAL CONVENOR</h1>
             <h2 className="w-[350px] md:w-[407px] text-xl font-light mb-20">TIP: Click on their profile to learn more about their <a className="font-bold">promises!</a></h2>
           </div>
           <div
             className={
               `grid gap-8 max-w-5xl px-4 mx-auto justify-center ` +
               (
-                Grade9RepCandidates.length === 1
+                socialConvenorCandidates.length === 1
                   ? "grid-cols-1"
-                  : Grade9RepCandidates.length === 2
+                  : socialConvenorCandidates.length === 2
                   ? "grid-cols-1 sm:grid-cols-2"
                   : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
               )
             }
             style={{ gap: "126px"}}
           >
-            {Grade9RepCandidates.map((candidate) => (
+            {socialConvenorCandidates.map((candidate) => (
               <Link
                 key={candidate.name}
                 href={`/candidate/${candidate.name.toLowerCase().replace(/\s+/g, "-")}`}

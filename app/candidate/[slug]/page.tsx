@@ -9,13 +9,13 @@ import { useState, useEffect } from "react";
 const getRoleColor = (role: string) => {
   const normalized = role.toLowerCase().replace(/\s+/g, ""); // e.g., "Vice President" → "vicepresident"
   switch (normalized) {
-    case "grade12rep":
+    case "president":
       return "#2F3E46";
-    case "grade11rep":
+    case "vicepresident":
       return "#E07A5F";
-    case "grade10rep":
+    case "treasurer":
       return "#457B9D";
-    case "grade9rep":
+    case "socialconvenor":
       return "#A3B18A";
     default:
       return "#0073FF";
