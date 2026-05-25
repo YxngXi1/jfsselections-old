@@ -46,7 +46,7 @@ export const candidates = [
     image: "/candidates/treasurer/kiratchopra.jpg",
     role: "treasurer",
     poster: "/candidates/treasurer/posters/kiratchopra.pdf",
-    video: "/candidates/treasurer/video/kiratchopra.mp4",
+    video: "/candidates/treasurer/video/kiratchopra.MOV",
   },
   {
     name: "NADINE MUGHAL",
@@ -67,6 +67,6 @@ export const candidates = [
     image: "/candidates/socialconvenor/navyashrivastava.jpg",
     role: "social convenor",
     poster: "/candidates/socialconvenor/posters/navyashrivastava.png",
-    video: "/candidates/socialconvenor/video/navyashrivastava.mp4",
+    video: "/candidates/socialconvenor/video/navyashrivastava.mov",
   },
 ];
