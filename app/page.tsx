@@ -78,7 +78,7 @@ export default function Home() {
 
           <div className="flex flex-col justify-center items-center gap-y-2">
             <h1 className="font-bold text-5xl md:text-9xl text-[#0073FF]" data-aos="fade-up">Fraser Elections</h1>
-            <p className="text-white text-xl md:text-4xl w-2/3 text-wrap mx-auto font-light" data-aos="fade-up" data-aos-delay="300">View the candidates for the 2025 JohnFraser SAC elections, made by <a className="underline text-[#0073FF]" href="https://johnfrasersac.com">JFSS SAC</a></p>
+            <p className="text-white text-xl md:text-4xl w-2/3 text-wrap mx-auto font-light" data-aos="fade-up" data-aos-delay="300">View the candidates for the 2026 JohnFraser SAC elections, made by <a className="underline text-[#0073FF]" href="https://johnfrasersac.com">JFSS SAC</a></p>
           </div>
 
           <div className="w-full justify-center items-center flex">

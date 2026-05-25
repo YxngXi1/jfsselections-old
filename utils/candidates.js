@@ -4,7 +4,7 @@ export const candidates = [
     image: "/candidates/president/arshaanthind.jpg",
     role: "president",
     poster: "/candidates/president/posters/arshaanthind.pdf",
-    video: "/candidates/president/video/arshaanthind.mp4",
+    video: "/candidates/president/video/arshaanthind.mov",
   },
   {
     name: "SHAURYA DEDHIA",
@@ -39,7 +39,7 @@ export const candidates = [
     image: "/candidates/treasurer/abdelrahman.jpg",
     role: "treasurer",
     poster: "/candidates/treasurer/posters/abdelrahman.pdf",
-    video: "/candidates/treasurer/video/abdelrahman.mp4",
+    video: "/candidates/treasurer/video/abdelrahman.mov",
   },
   {
     name: "KIRAT CHOPRA",
