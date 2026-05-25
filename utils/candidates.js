@@ -53,7 +53,7 @@ export const candidates = [
     image: "/candidates/treasurer/nadinemughal.jpg",
     role: "treasurer",
     poster: "/candidates/treasurer/posters/nadinemughal.pdf",
-    video: "/candidates/treasurer/video/nadinemughal.mp4",
+    video: "/candidates/treasurer/video/nadinemughal.mov",
   },
   {
     name: "CAYDEN JANJUA",
